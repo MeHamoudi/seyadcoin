@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>Click</title>
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-focus-ring-color: white;
+            outline: none !important;
+        }
+        body {
+            background-color: rgb(6, 24, 32);
+        }
+        .con {
+            margin: auto;
+            margin-top: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 30px;
+        }
+        .js-numDisplay {
+            font-size: 50px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: white;
+
+        }
+        .container {
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.548);
+        }
+        .container:active{
+            transform: scale(0.99);
+            box-shadow: none;
+            background-color: transparent;
+        }
+        .container:active img {
+            transform: scale(0.98);
+        }
+        .container img {
+
+            border-radius: 100%;
+            aspect-ratio: 16 / 9;
+            transition: transform 0.2s;
+        }
+        .name {
+            color: rgb(204, 204, 204);
+            font-size: 50px;
+            font-family: fantasy;
+        }
+        .both {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            column-gap: 10px;
+        }
+        .coin {
+            width: 50px;
+            height: 50px;
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .coin img {
+            height: 100%;
+            width: 100%;
+        }
+        .mine {
+            padding: 10px 30px;
+            border-radius: 10px;
+            border: 1px solid white;
+            background-color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .on {
+            background: fixed;
+            color: white;
+        }
+        .oh {
+            color: white;
+            font-size: 50px;
+            margin: -25px;
+            opacity: 0;
+        }
+        .ohh {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <div class="name">coin سید</div>
+        <div class="both">
+            <div class="coin"><img src="1727608984494.jpg" alt=""></div>
+            <div class="js-numDisplay"></div>
+        </div>
+        <div class="oh">آه ه</div>
+        <div class="js-container container"><img class="img" src="1727608984494.jpg" alt=""></div>
+
+        <button onclick="autoClick()" class="mine">Maine</button>
+    </div>
+</body>
+    <script>
+        
+        let num = JSON.parse(localStorage.getItem('num'));
+        document.querySelector('.js-container').addEventListener('click', () => {
+            document.querySelector('.oh').classList.add('ohh');
+            setTimeout(() => {
+                document.querySelector('.oh').classList.remove('ohh')  
+            }, 100);
+            num++;
+            numDisplay();
+            saveTostorage();
+
+            document.querySelector('.js-container').classList.remove('blue-template');
+        });
+        function numDisplay() {
+            document.querySelector('.js-numDisplay').innerHTML = num;
+        }
+        numDisplay();
+
+        function saveTostorage() {
+            localStorage.setItem('num', JSON.stringify(num));
+        }
+
+        let setIntervalId;
+        let auto = JSON.parse(localStorage.getItem('auto')) || false;
+        function saveAuto() {
+            localStorage.setItem('auto', JSON.stringify(auto));
+        }
+        function autoClick () {
+            clearInterval(setIntervalId);
+            const maine = document.querySelector('.mine');
+            if (auto === false) {
+                auto = true;
+                maine.classList.add('on');
+                saveAuto();
+            } else if (auto === true){
+                auto = false;
+                maine.classList.remove('on');
+                saveAuto();
+            }   
+            autoClickBot();
+
+        }
+        function autoClickBot(){
+            if (auto === true) {
+                setIntervalId = setInterval(() => {
+                    num++;
+                    numDisplay();
+                    saveTostorage();
+                document.querySelector('.js-container').classList.remove('blue-template');
+                }, 1000);
+            }
+            
+        } 
+        autoClickBot()
+
+         </script>
+
+            <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-DD7M5D23X8"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-DD7M5D23X8');
+        </script>
+
+</html>
